@@ -1,8 +1,8 @@
 import type { Metadata, Viewport } from 'next'
 import { Geist, Geist_Mono } from 'next/font/google'
 import './globals.css'
-import { Header } from './header'
-import { Footer } from './footer'
+import { Header } from '../components/layout/header'
+import { Footer } from '../components/layout/footer'
 import { ThemeProvider } from 'next-themes'
 
 export const viewport: Viewport = {
@@ -42,7 +42,7 @@ export default function RootLayout({
   return (
     <html lang="en" suppressHydrationWarning>
       <body
-        className={`${geist.variable} ${geistMono.variable} bg-white tracking-tight antialiased dark:bg-zinc-950`}
+        className={`${geist.variable} ${geistMono.variable} bg-[#EFF3F5] tracking-tight antialiased dark:bg-[#0D0D0D]`}
       >
         <ThemeProvider
           enableSystem={true}
@@ -52,10 +52,8 @@ export default function RootLayout({
         >
           <div className="flex min-h-screen w-full flex-col font-[family-name:var(--font-inter-tight)]">
             <div className="relative mx-auto flex w-full max-w-screen-sm flex-1 flex-col justify-between px-4">
-              <div className="flex flex-1 flex-col justify-center gap-4 bg-amber-300">
-                <Header />
-                {children}
-              </div>
+              <Header />
+              {children}
               <Footer />
             </div>
           </div>
