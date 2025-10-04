@@ -13,6 +13,7 @@ import {
   TECHNOLOGIES,
   Technology,
 } from '@/lib/data'
+import clsx from 'clsx'
 
 type ProjectsProps = {
   project: Project
@@ -42,24 +43,27 @@ export function Projects({ project }: ProjectsProps) {
       >
         {project.name}
       </MorphingDialogTrigger>
-      <MorphingDialogContainer>
-        <MorphingDialogContent className="relative aspect-video rounded-2xl bg-zinc-50 p-1 ring-1 ring-zinc-200/50 ring-inset dark:bg-zinc-950 dark:ring-zinc-800/50">
+      <MorphingDialogContainer
+        className={clsx(`overflow-y-auto`, {
+          'items-start py-12': project.images,
+        })}
+      >
+        <MorphingDialogContent className="dark:bg-ring-zinc-800/50 relative rounded-2xl bg-[#EFF3F5]/80 p-1 py-8 ring-1 ring-inset dark:bg-[#0D0D0D]/80">
           <div className="px-6 lg:px-8">
             <div className="mx-auto max-w-3xl space-y-4 text-base/7">
-              <span
-                className="rounded-md px-2 py-1 font-semibold text-white"
+              <div
+                className="w-fit rounded-md px-2 py-1 font-semibold text-white"
                 style={{
                   backgroundColor: `${service?.color}`,
                 }}
               >
                 {service?.name}
-              </span>
-              <h1 className="mt-2 text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-5xl dark:text-white">
+              </div>
+              <h1 className="flex-1 text-4xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-4xl dark:text-white">
                 {project.name}
               </h1>
-              <p className="mt-6 text-xl/8">{project.description}</p>
               <button
-                className="flex cursor-pointer items-center gap-2 py-1 text-3xl text-gray-700 hover:underline dark:text-gray-300"
+                className="flex w-fit cursor-pointer items-center gap-2 py-1 text-2xl text-gray-700 hover:underline dark:text-gray-300"
                 onClick={() => window.open(project.link, '_blank')}
                 style={{
                   color: `${service?.color}`,
@@ -75,6 +79,7 @@ export function Projects({ project }: ProjectsProps) {
                   />
                 </span>
               </button>
+              <p className="text-xl/8">{project.description}</p>
               <div className="flex flex-wrap gap-2">
                 {technologies.map((technology) => (
                   <span
@@ -87,6 +92,17 @@ export function Projects({ project }: ProjectsProps) {
                     {technology.name}
                   </span>
                 ))}
+              </div>
+              <div className="flex flex-wrap justify-center gap-2">
+                {project.images &&
+                  project.images?.map((image, imageIndex) => (
+                    <img
+                      src={`/test/${image}`}
+                      alt={project.name}
+                      className="aspect-video object-contain"
+                      key={'project-image-' + imageIndex}
+                    />
+                  ))}
               </div>
             </div>
           </div>

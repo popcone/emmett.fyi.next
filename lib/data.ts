@@ -10,6 +10,7 @@ export type Project = {
   name: string
   description: string
   link: string
+  images?: string[]
   technologies: Technology['id'][]
 }
 
@@ -26,12 +27,13 @@ export type Technology = {
 
 export const PROJECTS: Project[] = [
   {
-    name: 'Project 1',
+    name: 'Project 1 with an extra extra really long name',
     category: 1,
     description:
       'Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra tellus varius',
     link: '#',
     id: 1,
+    images: ['screen-1.png', 'screen-2.png', 'screen-3.png'],
     technologies: [1, 2, 3, 4, 5],
   },
   {
@@ -41,6 +43,7 @@ export const PROJECTS: Project[] = [
       'Et vitae blandit facilisi magna lacus commodo. Vitae sapien duis odio id et. Id blandit molestie auctor fermentum dignissim. Lacus diam tincidunt ac cursus in vel.',
     link: '#',
     id: 2,
+    images: ['screen-1.png'],
     technologies: [1, 2, 3, 4, 5],
   },
   {
