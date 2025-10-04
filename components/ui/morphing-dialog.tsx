@@ -226,7 +226,10 @@ export type MorphingDialogContainerProps = {
   style?: React.CSSProperties
 }
 
-function MorphingDialogContainer({ children }: MorphingDialogContainerProps) {
+function MorphingDialogContainer({
+  children,
+  className,
+}: MorphingDialogContainerProps) {
   const { isOpen, uniqueId } = useMorphingDialog()
   const [mounted, setMounted] = useState(false)
 
@@ -248,7 +251,12 @@ function MorphingDialogContainer({ children }: MorphingDialogContainerProps) {
             animate={{ opacity: 1 }}
             exit={{ opacity: 0 }}
           />
-          <div className="fixed inset-0 z-50 flex items-center justify-center">
+          <div
+            className={cn(
+              'fixed inset-0 z-50 flex items-center justify-center',
+              className,
+            )}
+          >
             {children}
           </div>
         </>
