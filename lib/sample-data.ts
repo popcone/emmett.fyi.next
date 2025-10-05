@@ -1,77 +1,73 @@
-export type Service = {
-  id: number
-  name: string
-  color: string
-}
-
-export type Project = {
-  id: number
-  category: Service['id']
-  name: string
-  description: string
-  link: string
-  images?: string[]
-  technologies: Technology['id'][]
-}
+import { Service, Project, Technology } from './definitions'
 
 export const SERVICES: Service[] = [
-  { id: 1, name: 'Software', color: '#F24900' },
-  { id: 2, name: 'Applications', color: '#1A88F8' },
-  { id: 3, name: 'AI Automation', color: '#1F807B' },
+  { id: 1, name: 'Applications', color: '#F24900' },
+  { id: 2, name: 'Marketing', color: '#1F807B' },
+  { id: 3, name: 'Systems', color: '#1A88F8' },
+  { id: 4, name: 'Performance', color: '#FFB800' },
 ]
-
-export type Technology = {
-  id: number
-  name: string
-}
 
 export const PROJECTS: Project[] = [
   {
-    name: 'Project 1 with an extra extra really long name',
+    id: 1,
+    title: 'eCommerce (example.com)',
+    role: 'Frontend Developer',
     category: 1,
     description:
       'Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id. Id dolor praesent donec est. Odio penatibus risus viverra tellus varius',
     link: '#',
-    id: 1,
     images: ['screen-1.png', 'screen-2.png', 'screen-3.png'],
     technologies: [1, 2, 3, 4, 5],
+    highlights: [
+      'Lorem ipsum dolor sit amet. adipiscing elit. Sed do eiusmod tempor incididunt ut labore et dolore magna aliqua.',
+      'Lorem ipsum dolor sit amet. adipiscing elit. Sed do eiusmod.',
+      'Lorem ipsum dolor sit amet',
+    ],
   },
   {
-    name: 'Project 2',
+    id: 2,
+    title: 'Project 2 (project management)',
+    role: 'Frontend Developer',
     category: 2,
     description:
       'Et vitae blandit facilisi magna lacus commodo. Vitae sapien duis odio id et. Id blandit molestie auctor fermentum dignissim. Lacus diam tincidunt ac cursus in vel.',
     link: '#',
-    id: 2,
     images: ['screen-1.png'],
     technologies: [1, 2, 3, 4, 5],
+    highlights: ['highlight 1', 'highlight 2', 'highlight 3'],
   },
   {
-    name: 'Project 3',
+    id: 2,
+    title: 'Project 3',
+    role: 'Frontend Developer',
     category: 2,
     description:
       'Odio penatibus risus viverra tellus varius sit neque erat velit. Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id.',
     link: '#',
-    id: 2,
     technologies: [1, 2, 3, 4, 5],
+    highlights: ['highlight 1', 'highlight 2', 'highlight 3'],
   },
   {
-    name: 'Project 4',
+    id: 1,
+    title: 'Project 4',
+    role: 'Frontend Developer',
     category: 1,
     description:
       'Odio penatibus risus viverra tellus varius sit neque erat velit. Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id.',
     link: '#',
-    id: 1,
     technologies: [1, 2, 3, 4, 5],
+    highlights: ['highlight 1', 'highlight 2', 'highlight 3'],
   },
   {
-    name: 'Project 5',
+    id: 3,
+    title: 'Project 5',
+    role: 'Frontend Developer',
     category: 3,
     description:
       'Odio penatibus risus viverra tellus varius sit neque erat velit. Faucibus commodo massa rhoncus, volutpat. Dignissim sed eget risus enim. Mattis mauris semper sed amet vitae sed turpis id.',
     link: '#',
-    id: 3,
     technologies: [1, 2, 3, 4, 5],
+    highlights: ['highlight 1', 'highlight 2', 'highlight 3'],
   },
 ]
 
