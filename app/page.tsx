@@ -89,7 +89,7 @@ export default function MainPage() {
       >
         <div className="flex flex-wrap justify-center gap-6 space-x-2">
           {PROJECTS.map((project, projectIndex) => (
-            <div className="relative" key={`${projectIndex}-${project.name}`}>
+            <div className="relative" key={`${projectIndex}-${project.title}`}>
               <Projects project={project} />
             </div>
           ))}
