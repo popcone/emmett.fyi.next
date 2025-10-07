@@ -4,7 +4,7 @@ import { NextResponse } from 'next/server'
 export async function GET() {
   const projects = await getProjects()
   const technologies = await getTechnologies()
-  //
+
   const reshapedProjects = projects.map((project: Record<string, any>) => {
     const projectTechnologyNames = (project?.technologies ?? [])
       .map((relation: any) => {
