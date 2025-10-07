@@ -1,10 +1,12 @@
 'use client'
 import { motion } from 'motion/react'
 import { Projects } from '@/components/projects'
-import { PROJECTS, SERVICES, type Project } from '../lib/data'
+import { PROJECTS, SERVICES } from '../lib/sample-data'
 import { TextEffect } from '@/components/ui/text-effect'
-import Image from 'next/image'
-import { cn } from '@/lib/utils'
+import { useEffect, useState } from 'react'
+import { Project } from '@/lib/definitions'
+import { getProjects } from '@/lib/data'
+import { getBaseUrl } from '@/lib/utils'
 
 const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
@@ -25,12 +27,46 @@ const TRANSITION_SECTION = {
   duration: 0.3,
 }
 
-type ProjectsProps = {
-  project: Project
-}
-
 export default function MainPage() {
   //
+  const [projects, setProjects] = useState<Project[]>([])
+  const [isLoading, setIsLoading] = useState(true)
+  const [error, setError] = useState<string | null>(null)
+
+  useEffect(() => {
+    setIsLoading(true)
+    const baseUrl = getBaseUrl()
+    const fetchProjects = async () => {
+      try {
+        const res = await fetch(`${baseUrl}/api/projects`).then((res) =>
+          res.json(),
+        )
+        setProjects(res.projects)
+        console.log(res)
+        setIsLoading(false)
+      } catch (error) {
+        setError(error instanceof Error ? error.message : 'Unknown error')
+        setIsLoading(false)
+      }
+    }
+    fetchProjects()
+  }, [])
+
+  if (isLoading) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        Loading...
+      </div>
+    )
+  }
+
+  if (error) {
+    return (
+      <div className="flex h-screen items-center justify-center">
+        Error: {error}
+      </div>
+    )
+  }
   return (
     <motion.main
       className="space-y-8"
@@ -47,13 +83,13 @@ export default function MainPage() {
       </div>
       <div className="space-y-2.5">
         <TextEffect
-          as="p"
+          as="h1"
           preset="fade"
           per="char"
-          className="text-center text-3xl font-bold text-zinc-600 dark:text-zinc-500"
+          className="text-center text-2xl font-semibold text-zinc-600 sm:text-3xl dark:text-zinc-500"
           delay={0.5}
         >
-          Frontend Developer
+          Frontend Web Engineer
         </TextEffect>
         <motion.section
           variants={VARIANTS_SECTION}
@@ -61,10 +97,10 @@ export default function MainPage() {
         >
           <div>
             <div className="flex flex-1 items-center justify-center gap-4">
-              {SERVICES.map((service) => {
+              {SERVICES.map((service, serviceIndex) => {
                 return (
                   <span
-                    key={service.name}
+                    key={`${serviceIndex}-${service.name}`}
                     className="inline-flex items-center gap-x-1.5 rounded-md px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-300"
                     style={{
                       backgroundColor: `${service.color}1a`,
@@ -94,8 +130,8 @@ export default function MainPage() {
         transition={TRANSITION_SECTION}
       >
         <div className="flex flex-wrap justify-center gap-6 space-x-2">
-          {PROJECTS.map((project) => (
-            <div className="relative" key={project.name}>
+          {projects.map((project, projectIndex) => (
+            <div className="relative" key={`${projectIndex}-${project.title}`}>
               <Projects project={project} />
             </div>
           ))}
