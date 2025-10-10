@@ -42,7 +42,6 @@ export default function MainPage() {
           res.json(),
         )
         setProjects(res.projects)
-        console.log(res)
         setIsLoading(false)
       } catch (error) {
         setError(error instanceof Error ? error.message : 'Unknown error')
@@ -67,6 +66,7 @@ export default function MainPage() {
       </div>
     )
   }
+
   return (
     <motion.main
       className="space-y-8"

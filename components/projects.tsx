@@ -16,6 +16,7 @@ import {
 
 import { SERVICES, TECHNOLOGIES } from '@/lib/sample-data'
 import { Project, Service, Technology } from '@/lib/definitions'
+import { isVideoFile } from '@/lib/utils'
 
 type ProjectsProps = {
   project: Project
@@ -131,14 +132,26 @@ export function Projects({ project }: any) {
               {/* Images */}
               <div className="mt-12 flex flex-wrap justify-center space-y-6">
                 {images &&
-                  images?.map((image: any, imageIndex: any) => (
-                    <img
-                      key={'project-image-' + imageIndex}
-                      src={`${image.image_url}`}
-                      alt={title}
-                      className="aspect-video w-full rounded-xl object-cover object-top"
-                    />
-                  ))}
+                  images.map((image: any, imageIndex: number) =>
+                    isVideoFile(image.image_url) ? (
+                      <video
+                        key={`project-video-${imageIndex}`}
+                        src={image.image_url}
+                        muted
+                        loop
+                        controls
+                        playsInline
+                        className="aspect-video w-full rounded-xl object-cover object-top"
+                      />
+                    ) : (
+                      <img
+                        key={`project-image-${imageIndex}`}
+                        src={image.image_url}
+                        className="aspect-video w-full rounded-xl object-cover object-top"
+                        alt={`Project image ${imageIndex + 1}`}
+                      />
+                    ),
+                  )}
               </div>
             </div>
           </div>
