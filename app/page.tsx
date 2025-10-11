@@ -7,6 +7,7 @@ import { useEffect, useState } from 'react'
 import { Project } from '@/lib/definitions'
 import { getProjects } from '@/lib/data'
 import { getBaseUrl } from '@/lib/utils'
+import ServiceTabs from '@/components/service-tabs'
 
 const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
@@ -32,6 +33,7 @@ export default function MainPage() {
   const [projects, setProjects] = useState<Project[]>([])
   const [isLoading, setIsLoading] = useState(true)
   const [error, setError] = useState<string | null>(null)
+  const [serverError, setServerError] = useState<string | null>(null)
 
   useEffect(() => {
     setIsLoading(true)
@@ -41,6 +43,12 @@ export default function MainPage() {
         const res = await fetch(`${baseUrl}/api/projects`).then((res) =>
           res.json(),
         )
+        if (res.error) {
+          console.error(res.error)
+          setServerError(res.error)
+          setIsLoading(false)
+          return
+        }
         setProjects(res.projects)
         setIsLoading(false)
       } catch (error) {
@@ -59,7 +67,7 @@ export default function MainPage() {
     )
   }
 
-  if (error) {
+  if (error && !serverError) {
     return (
       <div className="flex h-screen items-center justify-center">
         Error: {error}
@@ -95,47 +103,16 @@ export default function MainPage() {
           variants={VARIANTS_SECTION}
           transition={TRANSITION_SECTION}
         >
-          <div>
-            <div className="flex flex-1 items-center justify-center gap-4">
-              {SERVICES.map((service, serviceIndex) => {
-                return (
-                  <span
-                    key={`${serviceIndex}-${service.name}`}
-                    className="inline-flex items-center gap-x-1.5 rounded-md px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-300"
-                    style={{
-                      backgroundColor: `${service.color}1a`,
-                    }}
-                  >
-                    <svg
-                      viewBox="0 0 6 6"
-                      aria-hidden="true"
-                      className="size-2"
-                      style={{
-                        fill: service.color ?? '#000000',
-                      }}
-                    >
-                      <circle r={3} cx={3} cy={3} />
-                    </svg>
-                    {service.name}
-                  </span>
-                )
-              })}
-            </div>
-          </div>
+          <ServiceTabs services={SERVICES} />
         </motion.section>
       </div>
 
+      {serverError && <div className="text-center">Error: {serverError}</div>}
       <motion.section
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
       >
-        <div className="flex flex-wrap justify-center gap-6 space-x-2">
-          {projects.map((project, projectIndex) => (
-            <div className="relative" key={`${projectIndex}-${project.title}`}>
-              <Projects project={project} />
-            </div>
-          ))}
-        </div>
+        <Projects projects={projects} />
       </motion.section>
     </motion.main>
   )
