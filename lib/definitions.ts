@@ -4,6 +4,12 @@ export type Service = {
   color: string
 }
 
+export type Category = {
+  id: number
+  name: string
+  color: string
+}
+
 export type Link = {
   title: string
   url: string
@@ -16,7 +22,8 @@ export type Technology = {
 
 export interface Project {
   id: number
-  category: Service['id']
+  // category: Service['id']
+  category: Category
   title: string
   role: string
   description: string
