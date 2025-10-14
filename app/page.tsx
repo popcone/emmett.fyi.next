@@ -1,13 +1,10 @@
 'use client'
 import { motion } from 'motion/react'
 import { Projects } from '@/components/projects'
-import { PROJECTS, SERVICES } from '../lib/sample-data'
 import { TextEffect } from '@/components/ui/text-effect'
 import { useEffect, useState } from 'react'
 import { Project } from '@/lib/definitions'
-import { getProjects } from '@/lib/data'
 import { getBaseUrl } from '@/lib/utils'
-import ServiceTabs from '@/components/service-tabs'
 
 const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
@@ -84,9 +81,9 @@ export default function MainPage() {
     >
       <div className="flex justify-center">
         <img
-          src="/em-portrait.jpg"
+          src={process.env.NEXT_PUBLIC_PROFILE_IMAGE}
           className="inline-block size-24 rounded-full object-cover object-[75%] outline-1 -outline-offset-1 outline-black/5 sm:size-48 dark:outline-white/10"
-          alt="Profile"
+          alt="Profile Image"
         />
       </div>
       <div className="space-y-2.5">
@@ -94,17 +91,17 @@ export default function MainPage() {
           as="h1"
           preset="fade"
           per="char"
-          className="text-center text-2xl font-semibold text-zinc-600 sm:text-3xl dark:text-zinc-500"
+          className="text-center text-xl font-semibold text-zinc-600 sm:text-2xl dark:text-zinc-500"
           delay={0.5}
         >
-          Frontend Web Engineer
+          Projects I've Worked On
         </TextEffect>
-        <motion.section
+        {/* <motion.section
           variants={VARIANTS_SECTION}
           transition={TRANSITION_SECTION}
         >
           <ServiceTabs services={SERVICES} />
-        </motion.section>
+        </motion.section> */}
       </div>
 
       {serverError && <div className="text-center">Error: {serverError}</div>}

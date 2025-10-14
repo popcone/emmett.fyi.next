@@ -3,12 +3,20 @@ import { NextResponse } from 'next/server'
 
 export async function GET() {
   try {
-    const projects = await getProjects()
+    const [projectsResult, technologiesResult] = await Promise.allSettled([
+      getProjects(),
+      getTechnologies(),
+    ])
+
+    const projects =
+      projectsResult.status === 'fulfilled' ? projectsResult.value : []
+    const technologies =
+      technologiesResult.status === 'fulfilled' ? technologiesResult.value : []
+
     if (!projects || projects.length === 0) {
       throw new Error('No projects found')
     }
 
-    const technologies = await getTechnologies()
     if (!technologies || technologies.length === 0) {
       throw new Error('No technologies found')
     }
