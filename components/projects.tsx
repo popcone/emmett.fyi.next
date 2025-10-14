@@ -9,9 +9,10 @@ import {
 } from './ui/morphing-dialog'
 import { EyeIcon, SquareArrowOutUpRightIcon, XIcon } from 'lucide-react'
 
-import { SERVICES } from '@/lib/sample-data'
-import { Project, Service } from '@/lib/definitions'
-import { isVideoFile } from '@/lib/utils'
+import { CATEGORIES } from '@/lib/sample-data'
+import { Category, Project } from '@/lib/definitions'
+import { cn, isVideoFile } from '@/lib/utils'
+import { Media } from './ui/media-with-loader'
 
 type ProjectsProps = {
   projects: Project[]
@@ -26,17 +27,19 @@ export function Projects({ projects }: ProjectsProps) {
           title,
           role,
           description,
-          link,
+          url,
+          url_title,
           images,
           technologies,
           highlights,
           category,
         } = project
 
-        const service = SERVICES.find(
-          (service) =>
-            service.name.toLowerCase() === category.name.toLowerCase(),
-        ) as Service
+        const selectedCategory = CATEGORIES.find(
+          (el) => el.name.toLowerCase() === category.name.toLowerCase(),
+        ) as Category
+
+        const color = selectedCategory?.color
 
         return (
           <div className="relative" key={`${id}-${title}`}>
@@ -49,12 +52,14 @@ export function Projects({ projects }: ProjectsProps) {
             >
               <MorphingDialogTrigger
                 data-id={id}
-                className="flex w-fit items-center gap-2 rounded-lg border border-slate-700 px-2.5 py-1.5 dark:border-white"
+                className={cn(
+                  'flex w-fit items-center gap-2 border-b border-dotted px-2.5 py-1.5 hover:border-none',
+                )}
+                style={{
+                  borderColor: `${color}7a`,
+                }}
               >
-                <EyeIcon
-                  className="size-3"
-                  style={{ color: `${service?.color}` }}
-                />{' '}
+                <EyeIcon className="size-3" style={{ color: `${color}` }} />{' '}
                 {title}
               </MorphingDialogTrigger>
               <MorphingDialogContainer
@@ -69,31 +74,33 @@ export function Projects({ projects }: ProjectsProps) {
                       <div
                         className="w-fit rounded-md border px-2 py-1 text-sm font-semibold text-white"
                         style={{
-                          borderColor: `${service?.color}1a`,
-                          backgroundColor: `${service?.color}1a`,
-                          color: `${service?.color}`,
+                          borderColor: `${color}1a`,
+                          backgroundColor: `${color}1a`,
+                          color: `${color}`,
                         }}
                       >
-                        {service?.name}
+                        {selectedCategory?.name}
                       </div>
-                      <div className="flex items-center gap-2">
+                      <div className="space-y-2">
                         <h2 className="w-fit text-2xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-3xl dark:text-white">
                           {title}
                         </h2>
-                        {link && (
+                        {url && (
                           <button
-                            className="flex w-fit cursor-pointer items-center gap-2 text-gray-700 uppercase hover:underline dark:text-gray-300"
-                            onClick={() => window.open(link, '_blank')}
+                            className="flex w-fit cursor-pointer items-center gap-2 text-gray-700 hover:underline dark:text-gray-300"
+                            onClick={() => window.open(url, '_blank')}
                             style={{
-                              color: `${service?.color}`,
+                              color: `${color}`,
                             }}
+                            type="button"
+                            aria-label={`Visit ${url_title}`}
                           >
-                            Visit
+                            Visit {url_title}
                             <span className="text-gray-500">
                               <SquareArrowOutUpRightIcon
                                 className="size-4"
                                 style={{
-                                  color: `${service?.color}`,
+                                  color: `${color}`,
                                 }}
                               />
                             </span>
@@ -115,6 +122,7 @@ export function Projects({ projects }: ProjectsProps) {
                               <span
                                 key={technologyIndex}
                                 className="rounded-full bg-gray-900 px-4 py-1 text-xs font-medium text-gray-300 dark:bg-gray-300 dark:text-gray-900"
+                                aria-label={`Technology ${technology}`}
                               >
                                 {technology}
                               </span>
@@ -145,26 +153,17 @@ export function Projects({ projects }: ProjectsProps) {
                       {/* Images */}
                       <div className="mt-12 flex flex-wrap justify-center space-y-6">
                         {images &&
-                          images.map((image: any, imageIndex: number) =>
-                            isVideoFile(image.image_url) ? (
-                              <video
-                                key={`project-video-${imageIndex}`}
-                                src={image.image_url}
-                                muted
-                                loop
-                                controls
-                                playsInline
-                                className="aspect-video w-full rounded-xl object-cover object-top"
-                              />
-                            ) : (
-                              <img
-                                key={`project-image-${imageIndex}`}
-                                src={image.image_url}
-                                className="aspect-video w-full rounded-xl object-cover object-top"
-                                alt={`Project image ${imageIndex + 1}`}
-                              />
-                            ),
-                          )}
+                          images.map((image: any, imageIndex: number) => (
+                            <Media
+                              key={`project-media-${imageIndex}`}
+                              src={image.image_url}
+                              alt={`Project media ${imageIndex + 1}`}
+                              isVideo={isVideoFile(image.image_url)}
+                              controls
+                              playsInline
+                              className="w-full"
+                            />
+                          ))}
                       </div>
                     </div>
                   </div>
