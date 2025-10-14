@@ -20,6 +20,14 @@ export type Technology = {
   name: string
 }
 
+export type ProjectMedia = {
+  image_url: string
+}
+
+export type ProjectHighlight = {
+  highlight: string
+}
+
 export interface Project {
   id: number
   // category: Service['id']
@@ -27,8 +35,9 @@ export interface Project {
   title: string
   role: string
   description: string
-  link?: string
-  images?: string[]
-  technologies: Technology['id'][]
-  highlights?: string[]
+  url?: string
+  url_title?: string
+  images?: ProjectMedia[]
+  technologies: string[]
+  highlights?: ProjectHighlight[]
 }
