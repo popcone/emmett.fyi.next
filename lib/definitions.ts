@@ -31,6 +31,7 @@ export type ProjectHighlight = {
 export interface Project {
   id: number
   // category: Service['id']
+  sort_order: number
   category: Category
   title: string
   role: string
