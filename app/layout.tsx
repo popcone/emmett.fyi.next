@@ -5,6 +5,7 @@ import './globals.css'
 import { Header } from '../components/layout/header'
 import { Footer } from '../components/layout/footer'
 import { openSans, redHatText } from '@/lib/fonts'
+import { getBaseUrl } from '@/lib/utils'
 
 export const viewport: Viewport = {
   width: 'device-width',
@@ -13,15 +14,15 @@ export const viewport: Viewport = {
 }
 
 export const metadata: Metadata = {
-  metadataBase: new URL('https://example.com/'),
+  metadataBase: new URL(getBaseUrl()),
   alternates: {
     canonical: '/',
   },
   title: {
-    default: 'Personal website',
-    template: '%s | Personal website',
+    default: "Emmett's Portfolio",
+    template: "%s | Emmett's Portfolio",
   },
-  description: 'Lorem ipsum dolor sit amet, consectetur adipiscing elit.',
+  description: "Emmett's Portfolio",
 }
 
 export default function RootLayout({
