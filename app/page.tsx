@@ -32,28 +32,36 @@ export default function MainPage() {
   const [error, setError] = useState<string | null>(null)
   const [serverError, setServerError] = useState<string | null>(null)
 
+  const baseUrl = getBaseUrl()
+
   useEffect(() => {
     setIsLoading(true)
-    const baseUrl = getBaseUrl()
+    const controller = new AbortController()
+    const { signal } = controller
+
     const fetchProjects = async () => {
       try {
-        const res = await fetch(`${baseUrl}/api/projects`).then((res) =>
-          res.json(),
+        const res = await fetch(`${baseUrl}/api/projects`, { signal }).then(
+          (data) => data.json(),
         )
         if (res.error) {
-          console.error(res.error)
+          // console.error(res.error)
           setServerError(res.error)
-          setIsLoading(false)
+        } else {
+          setProjects(res.projects)
+        }
+      } catch (error) {
+        if (error instanceof DOMException && error.name === 'AbortError') {
           return
         }
-        setProjects(res.projects)
-        setIsLoading(false)
-      } catch (error) {
         setError(error instanceof Error ? error.message : 'Unknown error')
+      } finally {
         setIsLoading(false)
       }
     }
     fetchProjects()
+
+    return () => controller.abort()
   }, [])
 
   if (isLoading) {
