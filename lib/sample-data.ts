@@ -27,6 +27,7 @@ export const TECHNOLOGIES: Technology[] = [
 export const PROJECTS: Project[] = [
   {
     id: 1,
+    sort_order: 1,
     title: 'eCommerce (example.com)',
     role: 'Frontend Developer',
     category: CATEGORIES[0],
@@ -58,6 +59,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 2,
+    sort_order: 2,
     title: 'Project 2 (project management)',
     role: 'Frontend Developer',
     category: CATEGORIES[1],
@@ -79,6 +81,7 @@ export const PROJECTS: Project[] = [
   },
   {
     id: 3,
+    sort_order: 3,
     title: 'Project 3',
     role: 'Frontend Developer',
     category: CATEGORIES[2],

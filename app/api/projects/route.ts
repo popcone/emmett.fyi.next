@@ -1,4 +1,5 @@
 import { getProjects, getTechnologies } from '@/lib/data'
+import { Project } from '@/lib/definitions'
 import { NextResponse } from 'next/server'
 
 export async function GET() {
@@ -53,16 +54,35 @@ export async function GET() {
         })
         .filter(Boolean)
 
+      const sortedProjectTechnologyNames = projectTechnologyNames.sort(
+        (a: string, b: string) => a.localeCompare(b),
+      )
+
       return {
         ...project,
-        technologies: projectTechnologyNames,
+        technologies: sortedProjectTechnologyNames,
       }
     })
 
-    const reshapedProjects = reshapeProjects
+    const sortedAndReshapedProjects = reshapeProjects
+      .sort((a: Project, b: Project) => {
+        if (a.sort_order && b.sort_order) {
+          return a.sort_order - b.sort_order
+        } else if (a.sort_order && !b.sort_order) {
+          return -1
+        } else if (!a.sort_order && b.sort_order) {
+          return 1
+        }
+        return 0
+      })
+      .sort((a: Project, b: Project) => {
+        if (a.sort_order && b.sort_order) {
+          return a.sort_order - b.sort_order
+        }
+      })
 
     return NextResponse.json({
-      projects: reshapedProjects,
+      projects: sortedAndReshapedProjects,
     })
   } catch (error) {
     console.error(
