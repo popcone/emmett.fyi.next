@@ -36,8 +36,8 @@ export function Projects({ projects }: ProjectsProps) {
         } = project
 
         const selectedCategory = CATEGORIES.find(
-          (el) => el.name.toLowerCase() === category.name.toLowerCase(),
-        ) as Category
+          (el) => el.name.toLowerCase() === category?.name?.toLowerCase(),
+        ) || { name: 'Applications', color: '#F24900' }
 
         const color = selectedCategory?.color
 
@@ -53,7 +53,7 @@ export function Projects({ projects }: ProjectsProps) {
               <MorphingDialogTrigger
                 data-id={id}
                 className={cn(
-                  'flex min-h-20 items-center gap-2 rounded-xs border-l-4 bg-[#E4EFEF] px-6 py-2 hover:bg-[#DCE7E7] dark:bg-[#18201E] dark:hover:bg-[#202826]',
+                  'flex min-h-24 items-center gap-2 rounded-xs border-l-4 bg-[#E4EFEF] px-6 py-2 hover:bg-[#DCE7E7] md:text-lg dark:bg-[#18201E] dark:hover:bg-[#202826]',
                 )}
                 aria-label={`Open dialog for ${title}`}
                 aria-controls={`dialog-${id}`}
