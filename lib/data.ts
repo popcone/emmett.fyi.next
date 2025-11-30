@@ -19,7 +19,11 @@
 // }
 
 export const getProjects = async () => {
-  const url = `${process.env.DATA_URL}`
+  // const url = `${process.env.DATA_URL}`
+
+  // Local CMS - UNCOMMENT THIS WHEN USING LOCAL CMS
+  const url = `${process.env.DATA_API_URL}/items/portfolio_projects?fields=*.*`
+
   try {
     const response = await fetch(url)
     const data = await response.json()
@@ -31,7 +35,11 @@ export const getProjects = async () => {
 }
 
 export const getTechnologies = async () => {
-  const url = `${process.env.TECHNOLOGIES_URL}`
+  // const url = `${process.env.TECHNOLOGIES_URL}`
+
+  // Local CMS - UNCOMMENT THIS WHEN USING LOCAL CMS
+  const url = `${process.env.DATA_API_URL}/items/portfolio_technologies?fields=id,technology`
+
   try {
     const response = await fetch(url)
     const data = await response.json()
