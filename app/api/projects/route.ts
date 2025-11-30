@@ -64,25 +64,8 @@ export async function GET() {
       }
     })
 
-    const sortedAndReshapedProjects = reshapeProjects
-      .sort((a: Project, b: Project) => {
-        if (a.sort_order && b.sort_order) {
-          return a.sort_order - b.sort_order
-        } else if (a.sort_order && !b.sort_order) {
-          return -1
-        } else if (!a.sort_order && b.sort_order) {
-          return 1
-        }
-        return 0
-      })
-      .sort((a: Project, b: Project) => {
-        if (a.sort_order && b.sort_order) {
-          return a.sort_order - b.sort_order
-        }
-      })
-
     return NextResponse.json({
-      projects: sortedAndReshapedProjects,
+      projects: reshapeProjects,
     })
   } catch (error) {
     console.error(

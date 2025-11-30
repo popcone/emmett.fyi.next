@@ -5,6 +5,8 @@ import { TextEffect } from '@/components/ui/text-effect'
 import { useEffect, useState } from 'react'
 import { Project } from '@/lib/definitions'
 import { getBaseUrl } from '@/lib/utils'
+import ServiceTabs from '@/components/service-tabs'
+import { CATEGORIES } from '@/lib/sample-data'
 
 const VARIANTS_CONTAINER = {
   hidden: { opacity: 0 },
@@ -94,21 +96,20 @@ export default function MainPage() {
           alt="Profile Image"
         />
       </div>
-      <div className="space-y-2.5">
-        <TextEffect
-          as="h1"
-          preset="fade"
-          per="char"
-          className="text-center text-xl font-semibold text-zinc-600 sm:text-2xl dark:text-zinc-500"
-          delay={0.5}
-        >
-          Projects I've Worked On
-        </TextEffect>
+      <div className="space-y-4">
+        <p className="mx-auto max-w-xl text-center text-base font-medium text-zinc-600 sm:text-lg dark:text-zinc-500">
+          I build the web experiences users interact with—software,
+          applications, and web-based business systems—for teams who need to
+          profit from them.
+        </p>
+        <span className="mt-2 block text-center">
+          Click on a project to view more details.
+        </span>
         {/* <motion.section
           variants={VARIANTS_SECTION}
           transition={TRANSITION_SECTION}
         >
-          <ServiceTabs services={SERVICES} />
+          <ServiceTabs services={CATEGORIES} />
         </motion.section> */}
       </div>
 
@@ -116,6 +117,7 @@ export default function MainPage() {
       <motion.section
         variants={VARIANTS_SECTION}
         transition={TRANSITION_SECTION}
+        className="relative"
       >
         <Projects projects={projects} />
       </motion.section>

@@ -12,7 +12,7 @@ export default function ServiceTabs({ services }: ServiceTabsProps) {
           return (
             <span
               key={`${serviceIndex}-${service.name}`}
-              className="inline-flex items-center gap-x-1.5 rounded-md px-2 py-1 text-xs font-medium text-gray-600 dark:text-gray-300"
+              className="inline-flex items-center gap-x-1.5 rounded-full px-4 py-1 text-xs font-medium text-gray-600 dark:text-gray-300"
               style={{
                 backgroundColor: `${service.color}1a`,
               }}
