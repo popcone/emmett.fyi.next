@@ -20,7 +20,7 @@ type ProjectsProps = {
 
 export function Projects({ projects }: ProjectsProps) {
   return (
-    <div className="flex flex-wrap justify-center gap-6 space-x-2">
+    <div className="grid grid-cols-1 gap-4 space-x-2 sm:grid-cols-2 md:gap-6">
       {projects.map((project) => {
         const {
           id,
@@ -42,7 +42,7 @@ export function Projects({ projects }: ProjectsProps) {
         const color = selectedCategory?.color
 
         return (
-          <div className="relative" key={`${id}-${title}`}>
+          <div className="relative col-span-1 w-full" key={`${id}-${title}`}>
             <MorphingDialog
               transition={{
                 type: 'spring',
@@ -53,21 +53,26 @@ export function Projects({ projects }: ProjectsProps) {
               <MorphingDialogTrigger
                 data-id={id}
                 className={cn(
-                  'flex w-fit items-center gap-2 border-b border-dotted px-2.5 py-1.5 hover:border-none',
+                  'flex min-h-20 items-center gap-2 rounded-xs border-l-4 bg-[#E4EFEF] px-6 py-2 hover:bg-[#DCE7E7] dark:bg-[#18201E] dark:hover:bg-[#202826]',
                 )}
+                aria-label={`Open dialog for ${title}`}
+                aria-controls={`dialog-${id}`}
+                aria-expanded={false}
+                aria-haspopup="dialog"
+                aria-role="button"
                 style={{
-                  borderColor: `${color}7a`,
+                  borderColor: `${color}`,
                 }}
               >
-                <EyeIcon className="size-3" style={{ color: `${color}` }} />{' '}
                 {title}
               </MorphingDialogTrigger>
               <MorphingDialogContainer
                 className={clsx(`overflow-y-auto`, {
                   'items-start': images,
+                  'items-start md:items-center': !images,
                 })}
               >
-                <MorphingDialogContent className="dark:bg-ring-zinc-800/50 relative rounded-2xl bg-[#EFF3F5]/80 p-1 py-8 ring-1 ring-inset dark:bg-[#0D0D0D]/80">
+                <MorphingDialogContent className="dark:bg-ring-zinc-800/50 relative rounded-md bg-[#E4EFEF]/80 p-1 py-8 dark:bg-[#18201E]/80">
                   <div className="px-6 lg:px-8">
                     <div className="mx-auto max-w-3xl space-y-6 text-base/7">
                       {/* Header */}
@@ -82,7 +87,7 @@ export function Projects({ projects }: ProjectsProps) {
                         {selectedCategory?.name}
                       </div>
                       <div className="space-y-2">
-                        <h2 className="w-fit text-2xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-3xl dark:text-white">
+                        <h2 className="w-fit text-xl font-semibold tracking-tight text-pretty text-gray-900 sm:text-2xl dark:text-white">
                           {title}
                         </h2>
                         {url && (
