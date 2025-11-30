@@ -22,7 +22,7 @@ export const getProjects = async () => {
   // const url = `${process.env.DATA_URL}`
 
   // Local CMS - UNCOMMENT THIS WHEN USING LOCAL CMS
-  const url = `${process.env.DATA_API_URL}/items/portfolio_projects?fields=*.*`
+  const url = `${process.env.DATA_API_URL}/items/portfolio_projects?fields=*.*&filter[active][_eq]=true`
 
   try {
     const response = await fetch(url)
