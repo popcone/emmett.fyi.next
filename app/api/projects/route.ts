@@ -1,5 +1,4 @@
 import { getProjects, getTechnologies } from '@/lib/data'
-import { Project } from '@/lib/definitions'
 import { NextResponse } from 'next/server'
 
 export async function GET() {
@@ -26,7 +25,7 @@ export async function GET() {
 
     const reshapeProjects = projects.map((project: Record<string, any>) => {
       const projectTechnologyNames = (project?.technologies ?? [])
-        .map((relation: any) => {
+        .map((relation: Record<string, any>) => {
           const relationTechnology = relation?.portfolio_technologies_id
 
           if (relationTechnology && typeof relationTechnology === 'object') {
