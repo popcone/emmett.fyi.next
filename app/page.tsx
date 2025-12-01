@@ -98,9 +98,8 @@ export default function MainPage() {
       </div>
       <div className="space-y-4">
         <p className="mx-auto max-w-xl text-center text-base font-medium text-zinc-600 sm:text-lg dark:text-zinc-500">
-          I build the web experiences users interact with—software,
-          applications, and web-based business systems—for teams who need to
-          profit from them.
+          I build modern web experiences—applications, tools, and web-based
+          business systems—for teams who need to profit from them.
         </p>
         <span className="mt-2 block text-center">
           Click on a project to view more details.
