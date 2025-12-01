@@ -1,5 +1,4 @@
 import { getProjects, getTechnologies } from '@/lib/data'
-import { Project } from '@/lib/definitions'
 import { NextResponse } from 'next/server'
 
 export async function GET() {
