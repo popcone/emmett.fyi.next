@@ -91,7 +91,7 @@ export default function MainPage() {
     >
       <div className="flex justify-center">
         <img
-          src={process.env.NEXT_PUBLIC_PROFILE_IMAGE}
+          src="/img/em-small.jpg"
           className="inline-block size-24 rounded-full object-cover object-[75%] outline-1 -outline-offset-1 outline-black/5 sm:size-48 dark:outline-white/10"
           alt="Profile Image"
         />
